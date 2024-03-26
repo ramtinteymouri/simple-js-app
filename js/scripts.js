@@ -14,9 +14,13 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
+    function getLargePokemon() {
+        return pokemonList.filter(pokemon => pokemon.height > 2)
+    }
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        getLargePokemon: getLargePokemon
     };
 })();
 // forEach loop to replace the previous for loop
@@ -29,4 +33,8 @@ pokemonRepository.getAll().forEach(item => {
     else {
         document.write("</p>")
     }
+})
+
+pokemonRepository.getLargePokemon().forEach(item => {
+    document.write(`<h1>${item.name} is known as a large pokemon </h1>`)
 })
