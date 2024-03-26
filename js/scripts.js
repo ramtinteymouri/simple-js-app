@@ -5,7 +5,9 @@ let pokemonRepository = (function () {
         { name: "Lapras", height: 2.5, type: ["ice", "water"] }
     ];
     function add(pokemon) {
-        pokemonList.push(pokemon);
+        const requiredKeys = ['name', 'age', 'children'];
+        // if statement to filter invalid pokemon input
+        if ((typeof pokemon === Object) && requiredKeys.every(key => Object.keys(pokemon).includes(key))) pokemonList.push(pokemon);
     }
 
     function getAll() {
