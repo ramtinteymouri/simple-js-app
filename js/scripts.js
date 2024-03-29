@@ -14,27 +14,36 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    function getLargePokemon() {
-        return pokemonList.filter(pokemon => pokemon.height > 2)
+    function addListItem(pokemon) {
+        let pokemonList = document.querySelector('.pokemon-list');
+        let listItem = document.createElement('li');
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        button.classList.add("button");
+        listItem.appendChild(button);
+        pokemonList.appendChild(listItem);
+        // Event listener for ech button
+        addClickEventListener(button, pokemon);
+
+    }
+
+    function showDetails(pokemon) {
+        console.log(pokemon)
+    }
+    function addClickEventListener(element, pokemon) {
+        element.addEventListener('click', function () {
+            showDetails(pokemon);
+        });
     }
     return {
         add: add,
         getAll: getAll,
-        getLargePokemon: getLargePokemon
+        addListItem: addListItem,
+        showDetails: showDetails
     };
 })();
+
 // forEach loop to replace the previous for loop
 pokemonRepository.getAll().forEach(item => {
-    document.write(`<p>${item.name} (height ${item.height}m)`)
-    // if-else statement to highlight the large Pokemon
-    if (item.height > 2) {
-        document.write(" - WOW That's huge!</p>")
-    }
-    else {
-        document.write("</p>")
-    }
-})
-
-pokemonRepository.getLargePokemon().forEach(item => {
-    document.write(`<h1>${item.name} is known as a large pokemon </h1>`)
+    pokemonRepository.addListItem(item);
 })
