@@ -1,6 +1,10 @@
 :root {
     --primary-color: #2E3237;
     --text-color: white;
+    --button-background-color: #106462;
+    --border-button-color: rgba(0, 0, 0, 0.3);
+    --button-hover-color: #adf9d9;
+    --button-hover-text-color: black;
 }
 
 body {
@@ -10,4 +14,34 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: var(--text-color);
+}
+
+.button {
+    border: none;
+    display: inline-block;
+    font-family: inherit;
+    background-color: var(--button-background-color);
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 3px;
+    border-bottom: 2px solid var(--border-button-color);
+    transition: 0.5s opacity, 0.4s background-color, 0.5s color, 0.4s font-size;
+}
+
+.button:hover,
+.button:focus {
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.8;
+    background-color: var(--button-hover-color);
+    color: var(--button-hover-text-color);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    /* Remove default padding */
+    margin: 0;
+    /* Remove default margin */
 }
