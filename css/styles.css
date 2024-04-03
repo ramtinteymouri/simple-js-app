@@ -5,6 +5,7 @@
     --border-button-color: rgba(0, 0, 0, 0.3);
     --button-hover-color: #adf9d9;
     --button-hover-text-color: black;
+    --loading-message-text-color: red;
 }
 
 body {
@@ -44,4 +45,9 @@ ul {
     /* Remove default padding */
     margin: 0;
     /* Remove default margin */
+}
+
+.loading-message {
+    font-size: 24px;
+    color: var(--loading-message-text-color);
 }

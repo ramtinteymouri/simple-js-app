@@ -43,9 +43,11 @@ let pokemonRepository = (function () {
 
     // A promise function to load the list
     function loadList() {
+        showLoadingMessage()
         return fetch(apiUrl).then(function (response) {
             return response.json();
         }).then(function (json) {
+            hideLoadingMessage()
             json.results.forEach(function (item) {
                 let pokemon = {
                     name: item.name,
@@ -54,22 +56,40 @@ let pokemonRepository = (function () {
                 add(pokemon);
             });
         }).catch(function (e) {
+            hideLoadingMessage()
             console.error(e);
         })
     }
 
     function loadDetails(item) {
+        showLoadingMessage()
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
             return response.json();
         }).then(function (details) {
+            hideLoadingMessage()
             // Now we add the details to the item
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
             item.types = details.types;
         }).catch(function (e) {
+            hideLoadingMessage()
             console.error(e);
         });
+    }
+
+    function showLoadingMessage() {
+        let loadingMessage = document.createElement('div');
+        loadingMessage.textContent = 'Loading ...';
+        loadingMessage.classList.add('loading-message');
+        document.body.appendChild(loadingMessage);
+    }
+
+    function hideLoadingMessage() {
+        let loadingMessage = document.querySelector('.loading-message');
+        if (loadingMessage) {
+            loadingMessage.remove();
+        }
     }
     return {
         add: add,
@@ -77,7 +97,9 @@ let pokemonRepository = (function () {
         addListItem: addListItem,
         showDetails: showDetails,
         loadList: loadList,
-        loadDetails: loadDetails
+        loadDetails: loadDetails,
+        showLoadingMessage: showLoadingMessage,
+        hideLoadingMessage: hideLoadingMessage
     };
 })();
 
