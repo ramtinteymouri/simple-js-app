@@ -24,7 +24,7 @@ let pokemonRepository = (function () {
         button.classList.add("button");
         listItem.appendChild(button);
         pokemonList.appendChild(listItem);
-        // Event listener for ech button
+        // Event listener for each button
         addClickEventListener(button, pokemon);
 
     }
@@ -48,7 +48,7 @@ let pokemonRepository = (function () {
         let heightElement = document.createElement('p');
         let pokemonHeight = pokemon.height;
         if (pokemonHeight == undefined) {
-            console.log("Failed to load the height, retrying...")
+            console.log("Failed to load the height, Retrying...")
             pokemonHeight = pokemon.height;
         }
         heightElement.innerText = `Height: ${pokemon.height}m`;
