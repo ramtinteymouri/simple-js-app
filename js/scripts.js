@@ -81,9 +81,6 @@ let pokemonRepository = (function () {
                 hideModal();
             }
         });
-        loadDetails(pokemon).then(function () {
-            console.log(pokemon);
-        });
     }
 
     // Define loadHeight function outside of showDetails
