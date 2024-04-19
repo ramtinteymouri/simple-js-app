@@ -52,31 +52,6 @@ let pokemonRepository = (function () {
         $('#pokemonModal').modal('show');
     }
 
-    // Define loadHeight function outside of showDetails
-    function loadHeight(pokemon, heightElement) {
-        if (pokemon.height === undefined) {
-            console.log("Height information is undefined. Retrying...");
-            // Attempt to load height information again
-            loadDetails(pokemon).then(function () {
-                // Check if height is available after retrying
-                if (pokemon.height !== undefined) {
-                    heightElement.innerText = `Height: ${pokemon.height}m`;
-                } else {
-                    console.log("Failed to load height information.");
-                    heightElement.innerText = "Height information not available";
-                }
-            });
-        } else {
-            heightElement.innerText = `Height: ${pokemon.height}m`;
-        }
-    }
-
-
-    function hideModal() {
-        let modalContainer = document.querySelector('#modal-container');
-        modalContainer.classList.remove('is-visible');
-    }
-
     function addClickEventListener(element, pokemon) {
         element.addEventListener('click', function () {
             showDetails(pokemon);
