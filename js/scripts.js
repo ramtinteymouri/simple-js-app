@@ -18,69 +18,38 @@ let pokemonRepository = (function () {
 
     function addListItem(pokemon) {
         let pokemonList = document.querySelector('.pokemon-list');
-        let listItem = document.createElement('li');
+        let listItem = document.createElement('div');
+        // Add Bootstrap column classes
+        listItem.classList.add('col-md-4', 'col-lg-4', 'mb-3'); // mb-3 adds margin bottom for spacing
         let button = document.createElement('button');
-        button.innerText = pokemon.name;
-        button.classList.add("button");
-        listItem.appendChild(button);
-        pokemonList.appendChild(listItem);
+        button.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Uppercase the first letter of the pokemon name
+        button.classList.add('btn', 'btn-secondary', 'btn-block');
         // Event listener for each button
         addClickEventListener(button, pokemon);
-
+        listItem.appendChild(button);
+        pokemonList.appendChild(listItem);
     }
 
-    function showDetails(pokemon) {
-
-        let modalContainer = document.querySelector('#modal-container');
-        // Clear all existing modal content
-        modalContainer.innerHTML = '';
-
-        let modal = document.createElement('div');
-        modal.classList.add('modal');
+    function showModal(pokemon) {
 
         // Add the modal content
-        let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
-        closeButtonElement.innerText = 'X';
-        closeButtonElement.addEventListener('click', hideModal);
-        let nameElement = document.createElement('h1');
-        nameElement.innerText = pokemon.name;
-        let heightElement = document.createElement('p');
+        var modalTitle = document.querySelector('.modal-title');
+        var modalHeight = document.querySelector('.modal-height');
+        var modalImage = document.querySelector('.modal-image');
+        modalTitle.innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Uppercase the first letter of the pokemon name
         let pokemonHeight = pokemon.height;
         if (pokemonHeight == undefined) {
             console.log("Failed to load the height, Retrying...")
             pokemonHeight = pokemon.height;
         }
-        heightElement.innerText = `Height: ${pokemon.height}m`;
-        let imageElement = document.createElement('img');
-        imageElement.src = pokemon.imageUrl;
-        imageElement.onerror = function () {
+        modalHeight.innerText = `Height: ${pokemon.height}m`;
+        modalImage.setAttribute('src', pokemon.imageUrl);
+        modalImage.onerror = function () {
             // Image failed to load, attempt to reload
             console.log("Failed to load image. Retrying...");
-            imageElement.src = pokemon.imageUrl; // Attempt to reload image
+            modalImage.src = pokemon.imageUrl; // Attempt to reload image
         };
-
-        modal.appendChild(closeButtonElement);
-        modal.appendChild(nameElement);
-        modal.appendChild(heightElement);
-        loadHeight(pokemon, heightElement);
-        modal.appendChild(imageElement);
-        modalContainer.appendChild(modal);
-        modalContainer.classList.add('is-visible');
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-                hideModal();
-            }
-        });
-        modalContainer.addEventListener('click', (e) => {
-            // Since this is also triggered when clicking INSIDE the modal container,
-            // We only want to close if the user clicks directly on the overlay
-            let target = e.target;
-            if (target === modalContainer) {
-                hideModal();
-            }
-        });
+        $('#pokemonModal').modal('show');
     }
 
     // Define loadHeight function outside of showDetails
@@ -148,6 +117,12 @@ let pokemonRepository = (function () {
         }).catch(function (e) {
             hideLoadingMessage()
             console.error(e);
+        });
+    }
+
+    function showDetails(pokemon) {
+        loadDetails(pokemon).then(function () {
+            showModal(pokemon);
         });
     }
 
