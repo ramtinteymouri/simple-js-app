@@ -13,7 +13,7 @@ let pokemonRepository = (function () {
     }
 
     function getAll() {
-        return pokemonList;
+        return pokemonList.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     function addListItem(pokemon) {
