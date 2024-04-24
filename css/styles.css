@@ -45,3 +45,20 @@ body {
     font-size: 24px;
     color: var(--loading-message-text-color);
 }
+
+.pokemon-image {
+    width: 50%; /* Adjust the width to 50% of its parent container */
+    height: auto; /* Maintain the aspect ratio */
+    max-width: 50px; /* Limit the maximum width to 50 pixels */
+    display: block; /* Ensure it behaves as a block element */
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+.modal-body img,
+.modal-body p {
+    margin-bottom: 10px; /* Add spacing between items */
+}
+
+.container {
+    margin-top: 60px;
+}
