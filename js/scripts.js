@@ -17,7 +17,7 @@ let pokemonRepository = (function () {
     }
 
     function addListItem(pokemon) {
-        let pokemonList = document.querySelector('.pokemon-list');
+        let thePokemonList = document.querySelector('.pokemon-list');
         let listItem = document.createElement('div');
         // Add Bootstrap column classes
         listItem.classList.add('col-md-6', 'col-lg-4', 'col-xl-3', 'mb-3'); // Adjusted column classes for responsiveness
@@ -39,7 +39,7 @@ let pokemonRepository = (function () {
 
         button.appendChild(buttonText); // Append the Pokemon name text to the button
         listItem.appendChild(button);
-        pokemonList.appendChild(listItem);
+        thePokemonList.appendChild(listItem);
     }
 
     function showModal(pokemon) {
